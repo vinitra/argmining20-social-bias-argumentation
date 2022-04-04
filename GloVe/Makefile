@@ -8,7 +8,7 @@ CC = gcc
 # see https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)
 # CFLAGS = -lm -pthread -Ofast -march=native -funroll-loops -Wall -Wextra -Wpedantic
 
-CFLAGS = -lm -pthread -O3 -march=native -funroll-loops -Wall -Wextra -Wpedantic
+CFLAGS = -lm -pthread -O3 -funroll-loops -Wall -Wextra -Wpedantic
 BUILDDIR := build
 SRCDIR := src
 OBJDIR := $(BUILDDIR)

@@ -12,6 +12,45 @@ from tqdm import tqdm
 from sbeval.constants import LOGGING_CONFIG
 
 
+parser = argparse.ArgumentParser(
+        "A script to conduct a co-occurrence analysis of all WEAT test terms on a given corpus.")
+
+parser.add_argument(
+    "-d",
+    "--data",
+    required=True,
+    type=str,
+    help="Path to the corpus. Expects one whitespace separated post per line.",
+    metavar="DATA_PATH")
+parser.add_argument(
+    "-o",
+    "--output",
+    required=True,
+    type=str,
+    help="Path to the directory where the result file should be saved to.",
+    metavar="OUTPUT_DIR")
+parser.add_argument(
+    "-c",
+    "--processing_cores",
+    default=cpu_count() - 1,
+    type=int,
+    help="The number of processing cores to use for simultaneous computing of the scores.",
+    metavar="PROCESSING_CORES")
+parser.add_argument(
+    "-t",
+    "--tests",
+    required=True,
+    nargs='+',
+    help="A list of test numbers (from 1 to 10) that should be included in the analysis "
+         "(whitespace separated).",
+    type=int,
+    metavar="TESTS_TO_INCLUDE")
+
+args = parser.parse_args()
+    
+with open(args.data, "r") as f:
+    posts = f.read().split("\n")
+
 def _get_candidate_posts(pair: tuple) -> list:
     """Find all posts that contain both words in the given pair. Return them afterwards.
 
@@ -21,7 +60,6 @@ def _get_candidate_posts(pair: tuple) -> list:
     pair -- A tuple of strings describing the pair to filter posts for.
     """
     global posts
-
     candidates = []
     for post in posts:
         # Split the post by whitespace into a list of tokens
@@ -35,7 +73,7 @@ def _get_candidate_posts(pair: tuple) -> list:
     # Only return a list if there are any candidate post to return
     if len(candidates) > 0:
         return candidates
-
+    
     return None
 
 
@@ -91,7 +129,7 @@ def get_sentences_from_posts(posts: list) -> list:
     return all_sentences
 
 
-def _get_cooccurrence_sentences(pair: tuple) -> tuple:
+def _get_cooccurrence_sentences(pair: tuple, sentences) -> tuple:
     """Collect all sentences that contain both words of the given pair.
 
     Return a tuple where the first element describes the pair and the second a list of sentences
@@ -100,7 +138,6 @@ def _get_cooccurrence_sentences(pair: tuple) -> tuple:
     Arguments:
     pair -- A tuple describing the word pair.
     """
-    global sentences
 
     # For each sentence, check if it contains both words of the pair
     cooccurrence_sentences = [
@@ -113,7 +150,10 @@ def _get_cooccurrence_sentences(pair: tuple) -> tuple:
     return None
 
 
-def calculate_cooccurrences(pairs_to_test: list) -> list:
+def data_param(data):
+    return data[2](data[0], data[1])
+
+def calculate_cooccurrences(pairs_to_test: list, sentences) -> list:
     """For each of the given pair, collect all sentences that contain both words.
 
     Return a list of tuples where the first element is the pair and the second a list of sentences.
@@ -127,7 +167,7 @@ def calculate_cooccurrences(pairs_to_test: list) -> list:
 
     # For-loop to get a progress bar, even with different pools (small tqdm hack)
     cooccurrences = []
-    for _ in tqdm(pool.imap(_get_cooccurrence_sentences, pairs_to_test), total=len(pairs_to_test)):
+    for _ in tqdm(pool.imap(data_param, ((pair, sentences, _get_cooccurrence_sentences) for pair in pairs_to_test))):
         cooccurrences.append(_)
 
     pool.close()
@@ -142,7 +182,7 @@ def main():
     global nlp
     global posts
     global sentences
-
+        
     # Read all posts from the given text file; assuming that posts are newline separated
     with open(args.data, "r") as f:
         posts = f.read().split("\n")
@@ -194,7 +234,7 @@ def main():
 
     # Get cooccurrence sentences for each pair
     logging.info("Calculating sentence-based cooccurrences...")
-    cooccurrences_by_pair = calculate_cooccurrences(pairs_to_test)
+    cooccurrences_by_pair = calculate_cooccurrences(pairs_to_test, sentences)
 
     # Unpack cooccurrences
     logging.info("Unpacking cooccurrences into a more useful format...")

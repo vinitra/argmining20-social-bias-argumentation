@@ -85,7 +85,7 @@
             "Diamant",
             "sanft",
             "ehrlich",
-            "glücklich",
+            "Glück",
             "Regenbogen",
             "Diplom",
             "Geschenk",
@@ -93,7 +93,7 @@
             "Wunder",
             "Sonnenaufgang",
             "Familie",
-            "appy",
+            "glücklich",
             "Lachen",
             "Paradies",
             "urlaub"
@@ -174,7 +174,7 @@
             "geige"
         ],
         "Y": [
-            "arrow",
+            "Pfeil",
             "Keule",
             "Waffe",
             "Rakete",
@@ -201,7 +201,7 @@
             "Peitsche"
         ],
         "A": [
-            "Liebkosung",
+            "streicheln",
             "Freiheit",
             "Gesundheit",
             "Liebe",
@@ -222,7 +222,7 @@
             "Wunder",
             "Sonnenaufgang",
             "Familie",
-            "appy",
+            "glücklich",
             "Lachen",
             "Paradies",
             "urlaub"
@@ -262,195 +262,23 @@
         "attribute_words": "Angenehm vs. unangenehm",
         "out_of_vocabularies": {
             "word2vec": {
-                "X": [
-                    "Chip",
-                    "Ian",
-                    "Fred",
-                    "Jed",
-                    "Todd",
-                    "Brandon",
-                    "Hank",
-                    "Wilbur",
-                    "Sara",
-                    "Amber",
-                    "Crystal",
-                    "Meredith",
-                    "Shannon",
-                    "Donna",
-                    "Bobbie-Sue",
-                    "Peggy",
-                    "Sue-Ellen",
-                    "Wendy"
-                ],
-                "Y": [
-                    "Lerone",
-                    "Percell",
-                    "Rasaan",
-                    "Rashaun",
-                    "Everol",
-                    "Terryl",
-                    "Aiesha",
-                    "Lashelle",
-                    "Temeka",
-                    "Tameisha",
-                    "Teretha",
-                    "Latonya",
-                    "Shanise",
-                    "Sharise",
-                    "Tashika",
-                    "Lashandra",
-                    "Shavonn",
-                    "Tawanda"],
+                "X": [],
+                "Y": [],
                 "A": [],
                 "B": []
             },
             "glove": {
-                "X": [
-                    "Chip",
-                    "Ian",
-                    "Fred",
-                    "Jed",
-                    "Todd",
-                    "Brandon",
-                    "Hank",
-                    "Wilbur",
-                    "Sara",
-                    "Amber",
-                    "Crystal",
-                    "Meredith",
-                    "Shannon",
-                    "Donna",
-                    "Bobbie-Sue",
-                    "Peggy",
-                    "Sue-Ellen",
-                    "Wendy"
-                ],
-                "Y": [
-                    "Lerone",
-                    "Percell",
-                    "Rasaan",
-                    "Rashaun",
-                    "Everol",
-                    "Terryl",
-                    "Aiesha",
-                    "Lashelle",
-                    "Temeka",
-                    "Tameisha",
-                    "Teretha",
-                    "Latonya",
-                    "Shanise",
-                    "Sharise",
-                    "Tashika",
-                    "Lashandra",
-                    "Shavonn",
-                    "Tawanda"],
+                "X": [],
+                "Y": [],
                 "A": [],
                 "B": []
             }
         },
         "X": [
-            "Adam",
-            "Chip",
-            "Harry",
-            "Josh",
-            "Roger",
-            "Alan",
-            "Frank",
-            "Ian",
-            "Justin",
-            "Ryan",
-            "Andrew",
-            "Fred",
-            "Jack",
-            "Matthew",
-            "Stephen",
-            "Brad",
-            "Greg",
-            "Jed",
-            "Paul",
-            "Todd",
-            "Brandon",
-            "Hank",
-            "Jonathan",
-            "Peter",
-            "Wilbur",
-            "Amanda",
-            "Courtney",
-            "Heather",
-            "Melanie",
-            "Sara",
-            "Amber",
-            "Crystal",
-            "Katie",
-            "Meredith",
-            "Shannon",
-            "Betsy",
-            "Donna",
-            "Kristin",
-            "Nancy",
-            "Stephanie",
-            "Bobbie-Sue",
-            "Ellen",
-            "Lauren",
-            "Peggy",
-            "Sue-Ellen",
-            "Colleen",
-            "Emily",
-            "Megan",
-            "Rachel",
-            "Wendy"
+            "Peter", "Daniel", "Hans", "Thomas", "Andreas", "Martin", "Markus", "Michael", "Maria", "Anna", "Ursula", "Ruth", "Monika", "Elisabeth", "Verena", "Sandra"
         ],
         "Y": [
-            "Alonzo",
-            "Jamel",
-            "Lerone",
-            "Percell",
-            "Theo",
-            "Alphonse",
-            "Jerome",
-            "Leroy",
-            "Rasaan",
-            "Torrance",
-            "Darnell",
-            "Lamar",
-            "Lionel",
-            "Rashaun",
-            "Tyree",
-            "Deion",
-            "Lamont",
-            "Malik",
-            "Terrence",
-            "Tyrone",
-            "Everol",
-            "Lavon",
-            "Marcellus",
-            "Terryl",
-            "Wardell",
-            "Aiesha",
-              "Lashelle",
-            "Nichelle",
-            "Shereen",
-            "Temeka",
-            "Ebony",
-            "Latisha",
-            "Shaniqua",
-            "Tameisha",
-            "Teretha",
-            "Jasmine",
-            "Latonya",
-            "Shanise",
-            "Tanisha",
-            "Tia",
-            "Lakisha",
-            "Latoya",
-            "Sharise",
-            "Tashika",
-            "Yolanda",
-            "Lashandra",
-            "Malika",
-            "Shavonn",
-            "Tawanda",
-            "Yvette"
+            "Ladina", "Fatima", "Fatma", "Alma", "Soraya", "Svetlana", "Elif", "Vesna", "Mehmet", "Mustafa", "Aleksandar", "Mohamed", "Ibrahim", "Dragan", "Hasan", "Mohammad"
         ],
         "A": [
             "Zärtlichkeit",
@@ -515,24 +343,16 @@
         "out_of_vocabularies": {
             "word2vec": {
                 "X": [
-                    "Jay",
-                    "Kristen"
                 ],
                 "Y": [
-                    "Tremayne",
-                    "Latonya"
                 ],
                 "A": [],
                 "B": []
             },
             "glove": {
                 "X": [
-                    "Jota",
-                    "Kristen"
                 ],
                 "Y": [
-                    "Tremayne",
-                    "Latonya"
                 ],
                 "A": [],
                 "B": []
@@ -540,44 +360,10 @@
             }
         },
         "X": [
-            "Brad",
-            "Brendan",
-            "Geoffrey",
-            "Greg",
-            "Brett",
-            "Jay",
-            "Matthew",
-            "Neil",
-            "Todd",
-            "Allison",
-            "Anne",
-            "Carrie",
-            "Emily",
-            "Jill",
-            "Laurie",
-            "Kristen",
-            "Meredith",
-            "Sarah"
+            "Peter", "Daniel", "Hans", "Thomas", "Andreas", "Martin", "Markus", "Michael", "Maria", "Anna", "Ursula", "Ruth", "Monika", "Elisabeth", "Verena", "Sandra"
         ],
         "Y": [
-            "Darnell",
-            "Hakim",
-            "Jermaine",
-            "Kareem",
-            "Jamal",
-            "Leroy",
-            "Rasheed",
-            "Tremayne",
-            "Tyrone",
-            "Aisha",
-            "Ebony",
-            "Keisha",
-            "Kenia",
-            "Latonya",
-            "Lakisha",
-            "Latoya",
-            "Tamika",
-            "Tanisha"
+            "Ladina", "Fatima", "Fatma", "Alma", "Soraya", "Svetlana", "Elif", "Vesna", "Mehmet", "Mustafa", "Aleksandar", "Mohamed", "Ibrahim", "Dragan", "Hasan", "Mohammad"
         ],
         "A": [
             "Zärtlichkeit",
@@ -661,7 +447,7 @@
             "Ladina", "Fatima", "Fatma", "Alma", "Soraya", "Svetlana", "Elif", "Vesna", "Mehmet", "Mustafa", "Aleksandar", "Mohamed", "Ibrahim", "Dragan", "Hasan", "Mohammad"
         ],
         "A": [
-            "Spass", "Liebe", "Frieden", "wunderbar", "Freude", "Lachen", "glucklich"
+            "Spass", "Liebe", "Frieden", "wunderbar", "Freude", "Lachen", "glücklich"
         ],
         "B": [
             "Qual", "furchtbar", "schrecklich", "übel", "böse", "Krieg", "scheusslich", "Versagen"
@@ -763,7 +549,7 @@
             "Bruder", "Vater", "Onkel", "Grossvater", "Sohn"
         ],
         "B": [
-            "Schwester, Mutter, Tante, Grossmutter, Tochter"
+            "Schwester", "Mutter", "Tante", "Grossmutter", "Tochter"
         ],
         "word2vec_result": 0.97,
         "glove_ergebnis": 1.06

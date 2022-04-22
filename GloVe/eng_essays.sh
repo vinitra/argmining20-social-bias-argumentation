@@ -6,7 +6,7 @@ set -e
 
 make
 
-CORPUS=../eng_essays.txt
+CORPUS=../eng_essays_glove.txt
 VOCAB_FILE=eng_essay_vocab.txt
 COOCCURRENCE_FILE=cooccurrence.bin
 COOCCURRENCE_SHUF_FILE=cooccurrence.shuf.bin

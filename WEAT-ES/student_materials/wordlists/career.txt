@@ -1,0 +1,17 @@
+ejecutivo
+administración
+profesional
+sociedad
+salario
+oficina
+negocio
+carrera
+doctor doctora
+médico médica
+presidente
+maestro maestra
+abogado abogada
+arquitecto arquitecta
+dentista
+profesor profesora
+periodista

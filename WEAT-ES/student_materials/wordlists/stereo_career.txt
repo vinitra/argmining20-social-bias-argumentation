@@ -1,0 +1,10 @@
+constructor constructora
+bombero bombera
+electricista
+gasfitero gasfitera
+plomero plomera
+sacerdote
+leñador leñadora
+policía
+soldado
+jefe jefa

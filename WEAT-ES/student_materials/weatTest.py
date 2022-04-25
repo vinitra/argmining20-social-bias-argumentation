@@ -39,28 +39,32 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from transformers import AutoTokenizer, BertModel
-
+import json
 datadir = "wordlists/"
 
-def loadwordlist(filename, male_word_lists=False):
+def loadwordlist(test_num):
     """loads and returns all words in the given file.  Omits words not in the
     word embedding matrix"""
-    if not os.path.exists(datadir+filename+".txt"):
-        print("Illegal target or attribute: %s" % filename)
-        print("Options are: ")
-        for f in os.listdir(datadir):
-            print(os.path.splitext(f)[0])
-        sys.exit()
-    with open(datadir+filename+".txt",'r') as f:
-        words = [[], []]
-        for w in f.readlines():
-            toInsert = w.strip().lower().split(' ')
-            words[0].append(toInsert[0])
-            if male_word_lists:
-                words[1].append(toInsert[0])
-            else:
-                words[1].append(toInsert[-1])
-    return words
+    if test_num > 9:
+        print('Invalid WEAT Test.')
+        return
+    with open(datadir+"weat_tests_german.json") as f:
+        weat_german = json.load(f)
+        test_string = "test" + str(test_num)
+        weat_test = weat_german[test_string]
+    return weat_test['X'], weat_test['Y'], weat_test['A'], weat_test['B']
+
+def loadwordnames(test_num):
+    if test_num > 9:
+        print('Invalid WEAT Test.')
+        return
+    with open(datadir+"weat_tests_german.json") as f:
+        weat_german = json.load(f)
+        test_string = "test" + str(test_num)
+        weat_test = weat_german[test_string]
+        attribute_names = weat_test['attribute_words'].split(' vs. ')
+        word_names = weat_test['target_words'].split(' vs. ')
+    return word_names[0], word_names[1], attribute_names[0], attribute_names[1]
 
 def getAverageSimilarity(targetVec, targetLength, attrVectors, attrLengths):
     """Calculates average similarity between words in the target list and attribute
@@ -102,15 +106,15 @@ def run_weat(rundirect, male_word_lists=False):
     #parse inputs, load in glove vectors and wordlists
     tokenizer = AutoTokenizer.from_pretrained(rundirect[0])
     model = BertModel.from_pretrained(rundirect[0])
-    target1Name = rundirect[1]
-    target2Name = rundirect[2]
-    attr1Name = rundirect[3]
-    attr2Name = rundirect[4]
 
-    target1 = loadwordlist(target1Name)
-    target2 = loadwordlist(target2Name)
-    attribute1 = loadwordlist(attr1Name, male_word_lists)
-    attribute2 = loadwordlist(attr2Name, male_word_lists)
+    test_num = rundirect[1]
+
+    target1,target2,attribute1,attribute2 = loadwordlist(test_num)
+    target1Name,target2Name,attribute1Name,attribute2Name = loadwordnames(test_num)
+
+    print('WEAT Test: ', test_num)
+    print('targets: ', target1Name, target2Name)
+    print('attributes: ', attribute1Name, attribute2Name)
 
     target1Vecs, target1Lengths = getListData(target1, tokenizer, model)
     target2Vecs, target2Lengths = getListData(target2, tokenizer, model)
@@ -212,4 +216,4 @@ def run_weat(rundirect, male_word_lists=False):
 
 
 if __name__ == "__main__":
-    run_weat(['dccuchile/bert-base-spanish-wwm-cased', 'gender_m', 'gender_f', 'pleasant', 'unpleasant'], male_word_lists=False)
+    run_weat(['bert-base-german-cased', 1])

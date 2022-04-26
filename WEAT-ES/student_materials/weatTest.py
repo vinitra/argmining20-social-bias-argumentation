@@ -82,14 +82,10 @@ def getListData(conceptWords, tokenizer, transformer):
         if len(conceptWords[0][target_idx]) > 0:
             word_id = tokenizer.encode(conceptWords[0][target_idx])[1]
             v = transformer.embeddings.word_embeddings.weight[word_id].detach().numpy()
-            vectors[0].append(v)
-            lengths[0].append(np.linalg.norm(v))
-            vectors[1].append(v2)
-            lengths[1].append(np.linalg.norm(v2))
-    vectors[0] = np.array(vectors[0])
-    vectors[1] = np.array(vectors[1])
-    lengths[0] = np.array(lengths[0])
-    lengths[1] = np.array(lengths[1])
+            vectors.append(v)
+            lengths.append(np.linalg.norm(v))
+    vectors = np.array(vectors)
+    lengths = np.array(lengths)
     return (vectors, lengths)
 
 def rankAttributes(targetData, targetLengths, attrData, attrLengths, attrWords, n= 5):
@@ -122,32 +118,32 @@ def run_weat(rundirect, male_word_lists=False):
     print()
     print("Top 5 most similar attribute words to %s:" % target1Name)
 
-    topWordsT1 = rankAttributes( target1Vecs[0], target1Lengths[0], np.concatenate([attr1Data[0], attr2Data[0]]),
-            np.concatenate([attr1Lengths[0], attr2Lengths[0]]), np.concatenate([attribute1[0], attribute2[0]]))
+    topWordsT1 = rankAttributes(target1Vecs, target1Lengths, np.concatenate([attr1Data, attr2Data]),
+            np.concatenate([attr1Lengths, attr2Lengths]), np.concatenate([attribute1[0], attribute2[0]]))
     for word in topWordsT1[::-1]:
         print("\t"+word)
 
     print()
     print("Top 5 most similar attribute words to %s:" % target2Name)
 
-    topWordsT2 = rankAttributes( target2Vecs[0], target2Lengths[0], np.concatenate([attr1Data[1], attr2Data[1]]),
-            np.concatenate([attr1Lengths[1], attr2Lengths[1]]), np.concatenate([attribute1[1], attribute2[1]]))
+    topWordsT2 = rankAttributes(target1Vecs, target1Lengths, np.concatenate([attr1Data, attr2Data]),
+            np.concatenate([attr1Lengths, attr2Lengths]), np.concatenate([attribute1[1], attribute2[1]]))
     for word in topWordsT2[::-1]:
         print("\t"+word)
 
     print()
     #calculate similarities between target 1 and both attributes
-    targ1attr1Sims = [getAverageSimilarity( target1Vecs[0][i], target1Lengths[0][i], attr1Data[0], attr1Lengths[0])
-        for i in range( target1Vecs[0].shape[0])]
-    targ1attr2Sims = [getAverageSimilarity( target1Vecs[0][i], target1Lengths[0][i], attr2Data[0], attr2Lengths[0])
-        for i in range( target1Vecs[0].shape[0])]
+    targ1attr1Sims = [getAverageSimilarity( target1Vecs[i], target1Lengths[i], attr1Data, attr1Lengths)
+        for i in range( target1Vecs.shape[0])]
+    targ1attr2Sims = [getAverageSimilarity( target1Vecs[i], target1Lengths[i], attr2Data, attr2Lengths)
+        for i in range( target1Vecs.shape[0])]
     targ1SimDiff = np.subtract(targ1attr1Sims, targ1attr2Sims)
 
     #calculate similarities between target 2 and both attributes
-    targ2attr1Sims = [getAverageSimilarity( target2Vecs[1][i], target2Lengths[1][i], attr1Data[1], attr1Lengths[1])
-        for i in range( target2Vecs[1].shape[0])]
-    targ2attr2Sims = [getAverageSimilarity( target2Vecs[1][i], target2Lengths[1][i], attr2Data[1], attr2Lengths[1])
-        for i in range( target2Vecs[1].shape[0])]
+    targ2attr1Sims = [getAverageSimilarity( target2Vecs[i], target2Lengths[i], attr1Data, attr1Lengths)
+        for i in range( target2Vecs.shape[0])]
+    targ2attr2Sims = [getAverageSimilarity( target2Vecs[i], target2Lengths[i], attr2Data, attr2Lengths)
+        for i in range( target2Vecs.shape[0])]
     targ2SimDiff = np.subtract(targ2attr1Sims, targ2attr2Sims)
 
     #effect size is avg difference in similarities divided by standard dev
@@ -156,8 +152,8 @@ def run_weat(rundirect, male_word_lists=False):
 
     print()
     print("Calculating effect size.  The score is between +2.0 and -2.0.  ")
-    print("Positive scores indicate that %s is more associated with %s than %s." % (target1Name, attr1Name, target2Name))
-    print("Or, equivalently, %s is more associated with %s than %s." % (target2Name, attr2Name, target1Name))
+    print("Positive scores indicate that %s is more associated with %s than %s." % (target1Name, attribute1Name, target2Name))
+    print("Or, equivalently, %s is more associated with %s than %s." % (target2Name, attribute2Name, target1Name))
     print("Negative scores have the opposite relationship.")
     print("Scores close to 0 indicate little to no effect.")
     print()
@@ -175,10 +171,10 @@ def run_weat(rundirect, male_word_lists=False):
     # Box plot of pairwise similarity scores
     df = pd.DataFrame()
     df["Similarity"] = np.concatenate([targ1attr1Sims,targ1attr2Sims,targ2attr1Sims,targ2attr2Sims])
-    df["Pairs"] = [target1Name+"-"+attr1Name]*len(targ1attr1Sims)+[target1Name+"-"+attr2Name]*len(targ1attr2Sims)+[target2Name+"-"+attr1Name]*len(targ2attr1Sims) \
-      +[target2Name+"-"+attr2Name]*len(targ2attr2Sims)
+    df["Pairs"] = [target1Name+"-"+attribute1Name]*len(targ1attr1Sims)+[target1Name+"-"+attribute2Name]*len(targ1attr2Sims)+[target2Name+"-"+attribute1Name]*len(targ2attr1Sims) \
+      +[target2Name+"-"+attribute2Name]*len(targ2attr2Sims)
     df["Target"] = [target1Name]*len(targ1attr1Sims+targ1attr2Sims)+[target2Name]*len(targ2attr1Sims+targ2attr2Sims)
-    df["Attribute"] = [attr1Name]*len(targ1attr1Sims)+[attr2Name]*len(targ1attr2Sims)+[attr1Name]*len(targ2attr1Sims) +[attr2Name]*len(targ2attr2Sims)
+    df["Attribute"] = [attribute1Name]*len(targ1attr1Sims)+[attribute2Name]*len(targ1attr2Sims)+[attribute1Name]*len(targ2attr1Sims) +[attribute2Name]*len(targ2attr2Sims)
     sns.boxplot(x="Target", y="Similarity", hue="Attribute",data=df, ax=ax1)
     #Box plot of target bias in similarities
     df = pd.DataFrame()
@@ -204,9 +200,9 @@ def run_weat(rundirect, male_word_lists=False):
     labels[-1] = "(more similar) " + labels[-1]
     ax1.set_yticklabels(labels)
     labels = [item.get_text() for item in ax2.get_yticklabels()]
-    labels[0] = "(%s) " % attr2Name + labels[0]
+    labels[0] = "(%s) " % attribute2Name + labels[0]
     labels[len(labels)//2] = "(neutral) 0.0"
-    labels[-1] = "(%s) " % attr1Name + labels[-1]
+    labels[-1] = "(%s) " % attribute1Name + labels[-1]
     ax2.set_yticklabels(labels)
 
     return plt

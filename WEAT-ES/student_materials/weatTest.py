@@ -119,7 +119,7 @@ def run_weat(rundirect, male_word_lists=False):
     print("Top 5 most similar attribute words to %s:" % target1Name)
 
     topWordsT1 = rankAttributes(target1Vecs, target1Lengths, np.concatenate([attr1Data, attr2Data]),
-            np.concatenate([attr1Lengths, attr2Lengths]), np.concatenate([attribute1[0], attribute2[0]]))
+            np.concatenate([attr1Lengths, attr2Lengths]), np.array([attribute1[0], attribute2[0]]))
     for word in topWordsT1[::-1]:
         print("\t"+word)
 
@@ -127,7 +127,7 @@ def run_weat(rundirect, male_word_lists=False):
     print("Top 5 most similar attribute words to %s:" % target2Name)
 
     topWordsT2 = rankAttributes(target1Vecs, target1Lengths, np.concatenate([attr1Data, attr2Data]),
-            np.concatenate([attr1Lengths, attr2Lengths]), np.concatenate([attribute1[1], attribute2[1]]))
+            np.concatenate([attr1Lengths, attr2Lengths]), np.array([attribute1[1], attribute2[1]]))
     for word in topWordsT2[::-1]:
         print("\t"+word)
 

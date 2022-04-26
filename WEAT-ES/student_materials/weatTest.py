@@ -82,11 +82,6 @@ def getListData(conceptWords, tokenizer, transformer):
         if len(conceptWords[0][target_idx]) > 0:
             word_id = tokenizer.encode(conceptWords[0][target_idx])[1]
             v = transformer.embeddings.word_embeddings.weight[word_id].detach().numpy()
-            if conceptWords[0][target_idx] == conceptWords[1][target_idx]:
-                v2 = v
-            else:
-                word_2 = tokenizer.encode(conceptWords[1][target_idx])[1]
-                v2 = transformer.embeddings.word_embeddings.weight[word_2].detach().numpy()
             vectors[0].append(v)
             lengths[0].append(np.linalg.norm(v))
             vectors[1].append(v2)
@@ -115,6 +110,8 @@ def run_weat(rundirect, male_word_lists=False):
     print('WEAT Test: ', test_num)
     print('targets: ', target1Name, target2Name)
     print('attributes: ', attribute1Name, attribute2Name)
+
+    print(target1)
 
     target1Vecs, target1Lengths = getListData(target1, tokenizer, model)
     target2Vecs, target2Lengths = getListData(target2, tokenizer, model)

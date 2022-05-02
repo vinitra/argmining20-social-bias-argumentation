@@ -1,0 +1,31 @@
+WEAT Test:  6
+targets:  Männliche weibliche Namen
+attributes:  Karriere Familie
+8 8 8
+8 8 8
+8 8 8
+8 8 8
+Top 5 most similar attribute words to Männliche:, male
+	Familie, family
+	Kinder, children
+	Büro, office
+	Cousinen, cousins
+	Werdegang, career
+
+Top 5 most similar attribute words to weibliche Namen:, female names
+	Hochzeit, wedding
+	Familie, family
+	Eltern, parents
+	Ehe, Before
+	Kinder, children
+
+
+Calculating effect size.  The score is between +2.0 and -2.0.  
+Positive scores indicate that Männliche is more associated with Karriere than weibliche Namen.
+Or, equivalently, weibliche Namen is more associated with Familie than Männliche.
+Negative scores have the opposite relationship.
+Scores close to 0 indicate little to no effect.
+
+Effect size: 1.22
+
+Plotting similarity scores...

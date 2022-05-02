@@ -1,0 +1,27 @@
+WEAT Test:  8
+targets:  Wissenschaft Kunst
+attributes:  Männliche weibliche Begriffe
+Top 5 most similar attribute words to Wissenschaft:, Science
+	Tochter, daughter
+	Bruder, Brothers
+	Vater, Father
+	Sohn, Son
+	Onkel, uncle
+
+Top 5 most similar attribute words to Kunst:, art
+	Tochter, daughter
+	Vater, Father
+	Bruder, Brothers
+	Grossmutter, Grandmother
+	Sohn, Son
+
+
+Calculating effect size.  The score is between +2.0 and -2.0.  
+Positive scores indicate that Wissenschaft is more associated with Männliche than Kunst.
+Or, equivalently, Kunst is more associated with weibliche Begriffe than Wissenschaft.
+Negative scores have the opposite relationship.
+Scores close to 0 indicate little to no effect.
+
+Effect size: 0.43
+
+Plotting similarity scores...

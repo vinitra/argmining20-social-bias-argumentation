@@ -1,0 +1,27 @@
+WEAT Test:  1
+targets:  Blumen Insekten
+attributes:  Angenehm unangenehm
+Top 5 most similar attribute words to Blumen:, Flower
+	Ehre, Honor
+	Armut, Poverty
+	Qualen, agony
+	Kummer, grief
+	Freude, joy
+
+Top 5 most similar attribute words to Insekten:, insects
+	Ehre, Honor
+	Qualen, agony
+	Armut, Poverty
+	Freude, joy
+	Freude, joy
+
+
+Calculating effect size.  The score is between +2.0 and -2.0.  
+Positive scores indicate that Blumen is more associated with Angenehm than Insekten.
+Or, equivalently, Insekten is more associated with unangenehm than Blumen.
+Negative scores have the opposite relationship.
+Scores close to 0 indicate little to no effect.
+
+Effect size: 0.61
+
+Plotting similarity scores...

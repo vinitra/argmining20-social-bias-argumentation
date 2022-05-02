@@ -1,0 +1,31 @@
+WEAT Test:  2
+targets:  Instrumente Waffen
+attributes:  Angenehm Unangenehm
+25 25 25
+25 25 25
+25 25 25
+25 25 25
+Top 5 most similar attribute words to Instrumente:, instruments
+	Lachen, Laugh
+	Qualen, agony
+	Knast, jail
+	Diamant, diamond
+	Gestank, stink
+
+Top 5 most similar attribute words to Waffen:, weapons
+	Gift, poison
+	Knast, jail
+	Diamant, diamond
+	töten, kill
+	Überfall, raid
+
+
+Calculating effect size.  The score is between +2.0 and -2.0.  
+Positive scores indicate that Instrumente is more associated with Angenehm than Waffen.
+Or, equivalently, Waffen is more associated with Unangenehm than Instrumente.
+Negative scores have the opposite relationship.
+Scores close to 0 indicate little to no effect.
+
+Effect size: 1.15
+
+Plotting similarity scores...

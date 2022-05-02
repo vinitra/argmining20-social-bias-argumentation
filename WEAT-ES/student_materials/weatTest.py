@@ -54,6 +54,13 @@ def loadwordlist(test_num):
         weat_test = weat_german[test_string]
     return weat_test['X'], weat_test['Y'], weat_test['A'], weat_test['B']
 
+def cosine_similarity(vec1, len1, vec2, len2):
+    """calculates the cosine similarity between two vectors"""
+    if type(len1) == list or type(len2) == list:
+        return 0
+    dot_product = np.dot(vec1, vec2)
+    return dot_product / (len1 * len2)
+
 def loadwordnames(test_num):
     if test_num > 9:
         print('Invalid WEAT Test.')
@@ -69,10 +76,6 @@ def loadwordnames(test_num):
 def getAverageSimilarity(targetVec, targetLength, attrVectors, attrLengths):
     """Calculates average similarity between words in the target list and attribute
     list"""
-    # print(targetVec)
-    # print(targetLength)
-    # print(attrVectors[0])
-    # print(attrLengths[0])
     return np.average([cosine_similarity(targetVec, targetLength, attrVectors[i], attrLengths[i]) for i in range(attrVectors.shape[0])])
 
 def getListData(conceptWords, tokenizer, transformer):
@@ -86,20 +89,22 @@ def getListData(conceptWords, tokenizer, transformer):
             lengths.append(np.linalg.norm(v))
     vectors = np.array(vectors)
     lengths = np.array(lengths)
+    print(len(conceptWords), len(vectors), len(lengths))
     return (vectors, lengths)
 
 def rankAttributes(targetData, targetLengths, attrData, attrLengths, attrWords, n= 5):
     """Return the n highest similarity scores between the target and all attr"""
+    print(len(attrData), len(attrLengths), len(attrWords))
     attrSims = [getAverageSimilarity(attrData[i], attrLengths[i], targetData, targetLengths) for i in range(attrData.shape[0])]
     return attrWords[np.argsort(attrSims)[-n:]]
 
+
 def run_weat(rundirect, male_word_lists=False):
-    #parse inputs, load in glove vectors and wordlists
     tokenizer = AutoTokenizer.from_pretrained(rundirect[0])
     model = BertModel.from_pretrained(rundirect[0])
 
     test_num = rundirect[1]
-
+    #parse inputs, load in glove vectors and wordlists
     target1,target2,attribute1,attribute2 = loadwordlist(test_num)
     target1Name,target2Name,attribute1Name,attribute2Name = loadwordnames(test_num)
 
@@ -107,27 +112,26 @@ def run_weat(rundirect, male_word_lists=False):
     print('targets: ', target1Name, target2Name)
     print('attributes: ', attribute1Name, attribute2Name)
 
-    print(target1)
-
     target1Vecs, target1Lengths = getListData(target1, tokenizer, model)
     target2Vecs, target2Lengths = getListData(target2, tokenizer, model)
     attr1Data, attr1Lengths = getListData(attribute1, tokenizer, model)
     attr2Data, attr2Lengths = getListData(attribute2, tokenizer, model)
 
-    #Find more similar attribute words for each target list
-    print()
-    print("Top 5 most similar attribute words to %s:" % target1Name)
+    # print(len(target1Vecs), len(target1Lengths))
 
+    #Find more similar attribute words for each target list
+    print("Top 5 most similar attribute words to %s:" % target1Name)
+    
     topWordsT1 = rankAttributes(target1Vecs, target1Lengths, np.concatenate([attr1Data, attr2Data]),
-            np.concatenate([attr1Lengths, attr2Lengths]), np.array([attribute1[0], attribute2[0]]))
+            np.concatenate([attr1Lengths, attr2Lengths]), np.concatenate([attribute1, attribute2]))
     for word in topWordsT1[::-1]:
         print("\t"+word)
 
     print()
     print("Top 5 most similar attribute words to %s:" % target2Name)
 
-    topWordsT2 = rankAttributes(target1Vecs, target1Lengths, np.concatenate([attr1Data, attr2Data]),
-            np.concatenate([attr1Lengths, attr2Lengths]), np.array([attribute1[1], attribute2[1]]))
+    topWordsT2 = rankAttributes(target2Vecs, target2Lengths, np.concatenate([attr1Data, attr2Data]),
+            np.concatenate([attr1Lengths, attr2Lengths]), np.concatenate([attribute1, attribute2]))
     for word in topWordsT2[::-1]:
         print("\t"+word)
 

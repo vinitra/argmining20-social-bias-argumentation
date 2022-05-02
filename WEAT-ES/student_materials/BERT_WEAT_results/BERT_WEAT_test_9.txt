@@ -1,0 +1,31 @@
+WEAT Test:  9
+targets:  Psychische physische Krankheit
+attributes:  
+6 6 6
+6 6 6
+8 8 8
+7 7 7
+Top 5 most similar attribute words to Psychische:, mental
+	flüchtig, volatile
+	chronisch, chronic
+	anhaltend, sustained
+	stabil, stable
+	unbeständig, impermanent
+
+Top 5 most similar attribute words to physische Krankheit:, physical illness
+	chronisch, chronic
+	kurzfristig, in the short term
+	konstant, constant
+	stabil, stable
+	veränderlich, changeable
+
+
+Calculating effect size.  The score is between +2.0 and -2.0.  
+Positive scores indicate that Psychische is more associated with Vorübergehend than physische Krankheit.
+Or, equivalently, physische Krankheit is more associated with dauerhaft than Psychische.
+Negative scores have the opposite relationship.
+Scores close to 0 indicate little to no effect.
+
+Effect size: 0.31
+
+Plotting similarity scores...
